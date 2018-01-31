@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.Arrays;
 
 import com.comcast.cdn.traffic_control.traffic_router.configuration.ConfigurationListener;
 import com.comcast.cdn.traffic_control.traffic_router.core.ds.SteeringTarget;
@@ -84,6 +85,8 @@ public class TrafficRouter {
 
 	private final ConsistentHasher consistentHasher = new ConsistentHasher();
 	private SteeringRegistry steeringRegistry;
+
+	private static final List<Geolocation> MAXMIND_DEFAULT_GEOLOCATIONS = Arrays.asList(new Geolocation(37.751, -97.822));
 
 	public TrafficRouter(final CacheRegister cr, 
 			final GeolocationService geolocationService, 
@@ -308,6 +311,12 @@ public class TrafficRouter {
 			}
 		}
 
+		if (deliveryService.getMissLocation() != null) {
+			if (isDefaultGeolocation(clientLocation)) {
+				clientLocation = deliveryService.getMissLocation();
+			}
+		}
+
 		final List<Cache> caches = getCachesByGeo(deliveryService, clientLocation, track);
 
 		if (caches == null || caches.isEmpty()) {
@@ -316,6 +325,17 @@ public class TrafficRouter {
 
 		track.setResult(ResultType.GEO);
 		return caches;
+	}
+
+	private boolean isDefaultGeolocation(final Geolocation geolocation) {
+		if (geolocation.getCity() == null && geolocation.getPostalCode() == null) {
+			for (Geolocation defaultGeo : MAXMIND_DEFAULT_GEOLOCATIONS) {
+				if (geolocation.getLatitude() == defaultGeo.getLatitude() && geolocation.getLongitude() == defaultGeo.getLongitude()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	@SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.NPathComplexity"})
