@@ -311,10 +311,8 @@ public class TrafficRouter {
 			}
 		}
 
-		if (deliveryService.getMissLocation() != null) {
-			if (isDefaultGeolocation(clientLocation)) {
-				clientLocation = deliveryService.getMissLocation();
-			}
+		if (deliveryService.getMissLocation() != null && isDefaultGeolocation(clientLocation)) {
+			clientLocation = deliveryService.getMissLocation();
 		}
 
 		final List<Cache> caches = getCachesByGeo(deliveryService, clientLocation, track);
@@ -329,7 +327,7 @@ public class TrafficRouter {
 
 	private boolean isDefaultGeolocation(final Geolocation geolocation) {
 		if (geolocation.getCity() == null && geolocation.getPostalCode() == null) {
-			for (Geolocation defaultGeo : MAXMIND_DEFAULT_GEOLOCATIONS) {
+			for (final Geolocation defaultGeo : MAXMIND_DEFAULT_GEOLOCATIONS) {
 				if (geolocation.getLatitude() == defaultGeo.getLatitude() && geolocation.getLongitude() == defaultGeo.getLongitude()) {
 					return true;
 				}
