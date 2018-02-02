@@ -119,6 +119,10 @@ func TrafficRouterConfig() *client.TRConfigResponse {
 						Latitude:  75,
 						Longitude: 65,
 					},
+					DefaultGeoLocation: client.DefaultGeoLocation{
+					    Latitude: 37.751,
+					    Longitude: -97.822,
+					},
 					CoverageZoneOnly: true,
 					MatchSets: []client.MatchSet{
 						client.MatchSet{

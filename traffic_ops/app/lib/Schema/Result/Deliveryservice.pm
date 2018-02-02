@@ -156,6 +156,16 @@ __PACKAGE__->table("deliveryservice");
   data_type: 'numeric'
   is_nullable: 1
 
+=head2 default_geo_lat
+
+  data_type: 'numeric'
+  is_nullable: 1
+
+=head2 default_geo_long
+
+  data_type: 'numeric'
+  is_nullable: 1
+
 =head2 check_path
 
   data_type: 'text'
@@ -363,6 +373,10 @@ __PACKAGE__->add_columns(
   "miss_lat",
   { data_type => "numeric", is_nullable => 1 },
   "miss_long",
+  { data_type => "numeric", is_nullable => 1 },
+  "default_geo_lat",
+  { data_type => "numeric", is_nullable => 1 },
+  "default_geo_long",
   { data_type => "numeric", is_nullable => 1 },
   "check_path",
   { data_type => "text", is_nullable => 1 },

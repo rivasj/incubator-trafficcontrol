@@ -142,6 +142,11 @@ type MissLocation struct {
 	Latitude  null.Float `db:"latitude" json:"lat"`
 }
 
+type DefaultGeoLocation struct {
+	Longitude null.Float `db:"longitude" json:"long"`
+	Latitude  null.Float `db:"latitude" json:"lat"`
+}
+
 type Dispersion struct {
 	Limit    int      `json:"limit"`
 	Shuffled null.Int `json:"shuffled"`
@@ -161,6 +166,7 @@ type CrDeliveryService struct {
 	MatchSets            []MatchSetEntry    `json:"matchsets"`
 	MaxDNSIpsForLocation null.Int           `json:"maxDnsIpsForLocation"`
 	MissLocation         MissLocation       `json:"missLocation"`
+	DefaultGeoLocation   DefaultGeoLocation `json:"defaultGeoLocation"`
 	Soa                  Soa                `json:"soa"`
 	TTL                  null.Int           `json:"ttl"`
 	StaticDnsEntries     []CrStaticDnsEntry `json:"staticDnsEntries,omitempty"`
@@ -197,6 +203,8 @@ type CrconfigDsData struct {
 	MaxDnsAnswers      null.Int    `db:"max_dns_answers" json:"maxDnsAnswers"`
 	MissLat            null.Float  `db:"miss_lat" json:"missLat"`
 	MissLong           null.Float  `db:"miss_long" json:"missLong"`
+	DefaultGeoLat      null.Float  `db:"default_geo_lat" json:"defaultGeoLat"`
+	DefaultGeoLong     null.Float  `db:"default_geo_long" json:"defaultGeoLong"`
 	Protocol           string      `db:"protocol" json:"protocol"`
 	Ipv6RoutingEnabled null.Int    `db:"ipv6_routing_enabled" json:"ipv6RoutingEnabled"`
 	TrRequestHeaders   null.String `db:"tr_request_headers" json:"trRequestHeaders"`
@@ -464,6 +472,10 @@ func deliveryServicesSection(cdnName string, pmap map[string]string, db *sqlx.DB
 				MissLocation: MissLocation{
 					Latitude:  deliveryService.MissLat,
 					Longitude: deliveryService.MissLong,
+				},
+				DefaultGeoLocation: DefaultGeoLocation{
+				    DefaultGeoLat:  deliveryService.DefaultGeoLat,
+				    DefaultGeoLong: deliveryService.DefaultGeoLong,
 				},
 				Soa: Soa{
 					Admin:   pmap["tld.soa.admin"],

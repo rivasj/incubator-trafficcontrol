@@ -46,6 +46,8 @@ type Deliveryservices struct {
 	InfoUrl              null.String           `db:"info_url" json:"infoUrl"`
 	MissLat              null.Int              `db:"miss_lat" json:"missLat"`
 	MissLong             null.Int              `db:"miss_long" json:"missLong"`
+	DefaultGeoLat        null.Float            `db:"default_geo_lat" json:"defaultGeoLat"`
+    DefaultGeoLong       null.Float            `db:"default_geo_long" json:"defaultGeoLong"`
 	CheckPath            null.String           `db:"check_path" json:"checkPath"`
 	Protocol             null.Int              `db:"protocol" json:"protocol"`
 	SslKeyVersion        null.Int              `db:"ssl_key_version" json:"sslKeyVersion"`

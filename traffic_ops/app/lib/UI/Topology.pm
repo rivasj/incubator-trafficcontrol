@@ -517,6 +517,13 @@ sub gen_crconfig_json {
             $data_obj->{'deliveryServices'}->{ $row->xml_id }->{'missLocation'}->{'long'} = $row->miss_long + 0;
         }
 
+        if ( defined( $row->default_geo_lat ) && $row->default_geo_lat ne "" ) {
+            $data_obj->{'deliveryServices'}->{ $row->xml_id }->{'defaultGeoLocation'}->{'lat'} = $row->default_geo_lat + 0;
+        }
+        if ( defined( $row->default_geo_long ) && $row->default_geo_long ne "" ) {
+            $data_obj->{'deliveryServices'}->{ $row->xml_id }->{'defaultGeoLocation'}->{'long'} = $row->default_geo_long + 0;
+        }
+
         my $ds_ttl = $row->ccr_dns_ttl;
         $data_obj->{'deliveryServices'}->{ $row->xml_id }->{'ttls'} = {
             'A'    => "$ds_ttl",
@@ -706,6 +713,9 @@ sub stringify_ds {
     }
     if ( defined( $ds->{'missLocation'} ) ) {
         $string .= "|GeoMiss: " . $ds->{'missLocation'}->{'lat'} . "," . $ds->{'missLocation'}->{'long'};
+    }
+    if ( defined( $ds->{'defaultGeoLocation'} ) ) {
+        $string .= "|DefaultGeoLocation: " . $ds->{'defaultGeoLocation'}->{'lat'} . "," . $ds->{'defaultGeoLocation'}->{'long'};
     }
     if (defined( $ds->{'deepCachingType'} ) ) {
         $string .= "|deepCachingType: " . $ds->{'deepCachingType'};

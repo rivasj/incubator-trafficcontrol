@@ -74,6 +74,8 @@ type CsconfigRemap struct {
 	InfoUrl              null.String `db:"info_url" json:"infoUrl"`
 	MissLat              null.Float  `db:"miss_lat" json:"missLat"`
 	MissLong             null.Float  `db:"miss_long" json:"missLong"`
+	DefaultGeoLat        null.Float  `db:"default_geo_lat" json:"defaultGeoLat"`
+	DefaultGeoLong       null.Float  `db:"default_geo_long" json:"defaultGeoLong"`
 	CheckPath            null.String `db:"check_path" json:"checkPath"`
 	LastUpdated          time.Time   `db:"last_updated" json:"lastUpdated"`
 	Protocol             null.Int    `db:"protocol" json:"protocol"`
