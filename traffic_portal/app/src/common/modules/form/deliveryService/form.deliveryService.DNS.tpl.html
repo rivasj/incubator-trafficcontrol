@@ -256,6 +256,24 @@ under the License.
                     </div>
                 </div>
 
+                <div class="form-group" ng-class="{'has-error': hasError(deliveryServiceForm.defaultGeoLat), 'has-feedback': hasError(deliveryServiceForm.defaultGeoLat)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Default Latitude to Override</label>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        <input name="defaultGeoLat" type="number" class="form-control" ng-model="deliveryService.defaultGeoLat" pattern="/^\d+([,.]\d+)?$/" autofocus>
+                        <small class="input-error" ng-show="hasPropertyError(deliveryServiceForm.defaultGeoLat, 'pattern')">Number</small>
+                        <span ng-show="hasError(deliveryServiceForm.defaultGeoLat)" class="form-control-feedback"><i class="fa fa-times"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{'has-error': hasError(deliveryServiceForm.defaultGeoLong), 'has-feedback': hasError(deliveryServiceForm.defaultGeoLong)}">
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Default Longitude to Override</label>
+                    <div class="col-md-10 col-sm-10 col-xs-12">
+                        <input name="defaultGeoLong" type="number" class="form-control" ng-model="deliveryService.defaultGeoLong" pattern="/^\d+([,.]\d+)?$/" autofocus>
+                        <small class="input-error" ng-show="hasPropertyError(deliveryServiceForm.defaultGeoLong, 'pattern')">Number</small>
+                        <span ng-show="hasError(deliveryServiceForm.defaultGeoLong)" class="form-control-feedback"><i class="fa fa-times"></i></span>
+                    </div>
+                </div>
+
                 <div class="form-group" ng-class="{'has-error': hasError(deliveryServiceForm.geoLimit), 'has-feedback': hasError(deliveryServiceForm.geoLimit)}">
                     <label class="control-label col-md-2 col-sm-2 col-xs-12">Geo Limit *</label>
                     <div class="col-md-10 col-sm-10 col-xs-12">
